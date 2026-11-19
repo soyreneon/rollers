@@ -6,6 +6,7 @@
 import '@/global.css';
 
 import { Platform } from 'react-native';
+import { appConfig } from '@/constants/app-config';
 
 export const Colors = {
   light: {
@@ -22,6 +23,33 @@ export const Colors = {
     backgroundSelected: '#2E3135',
     textSecondary: '#B0B4BA',
   },
+} as const;
+
+export const theme = {
+  black: '#050607',
+  panel: '#101315',
+  white: '#F5F7F6',
+  muted: '#858D8D',
+  border: '#262B2D',
+  coin: appConfig.colors.coin,
+  dice: appConfig.colors.dice,
+  lime: '#C8FF58',
+  coinSurface: '#241323',
+  coinGlow: '#32142D',
+  coinFace: appConfig.colors.coin,
+  coinInner: '#F9D7F2',
+  coinInnerBorder: '#A73A8F',
+  coinInk: '#4C1944',
+  diceSurface: '#10221F',
+  diceGlow: '#11332E',
+  diceFace: '#D9FFF5',
+  diceFaceLight: '#F1FFFB',
+  diceFaceDark: '#A8E7D8',
+  diceInk: '#09231F',
+  link: '#3C87F7',
+  splash: '#208AEF',
+  splashStart: '#3C9FFE',
+  splashEnd: '#0274DF',
 } as const;
 
 export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;

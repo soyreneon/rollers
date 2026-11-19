@@ -1,4 +1,6 @@
 :root {
+  --roller-splash-start: #3c9ffe;
+  --roller-splash-end: #0274df;
   --font-display:
     Spline Sans, Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji,
     Segoe UI Symbol, Noto Color Emoji;

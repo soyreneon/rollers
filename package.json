@@ -4,6 +4,7 @@
   "main": "expo-router/entry",
   "dependencies": {
     "@expo/ui": "~58.0.28",
+    "@shopify/react-native-skia": "2.14.0",
     "expo": "~58.0.25",
     "expo-constants": "~58.0.16",
     "expo-device": "~58.0.5",
@@ -34,6 +35,7 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
+    "postinstall": "setup-skia-web",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",

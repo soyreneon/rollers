@@ -25,6 +25,19 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
+## App configuration
+
+Edit [`src/constants/app-config.ts`](./src/constants/app-config.ts) to configure the app:
+
+- Set `language` to `en` (the default) or `es`.
+- Set `colors.coin` and `colors.dice` to the desired accent colors.
+
+Shared colors are defined in `src/constants/theme.ts`. Screen styles live under `src/styles/app`,
+and component styles live in their corresponding `*.styles.ts` files.
+
+The coin and die animations are rendered with React Native Skia. Installing dependencies also
+prepares the CanvasKit WebAssembly asset needed by the web build.
+
 ## Get a fresh project
 
 When you're ready, run:
