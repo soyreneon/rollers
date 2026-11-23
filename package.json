@@ -29,11 +29,14 @@
     "@types/react": "~19.3.0",
     "eslint": "^9.0.0",
     "eslint-config-expo": "~58.0.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.2",
     "prettier": "^3.10.1",
     "typescript": "~6.0.3"
   },
   "scripts": {
     "start": "expo start",
+    "prepare": "husky",
     "postinstall": "setup-skia-web",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -42,5 +45,13 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\" \"*.{json,md,js,ts}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\" \"*.{json,md,js,ts}\""
   },
-  "private": true
+  "private": true,
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "src/**/*.{json,md}": "prettier --write",
+    "{AGENTS.md,README.md,app.json,eslint.config.js,expo-env.d.ts,package.json,tsconfig.json}": "prettier --write"
+  }
 }

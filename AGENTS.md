@@ -44,6 +44,12 @@ Run lint and typecheck before declaring any task done.
 - `npm run format` formats maintained source files and root configuration/documentation files. Do not manually format around or disable Prettier.
 - Run `npm run format:check` when verifying formatting without writing files.
 
+## Commit quality gates
+
+- The Husky `pre-commit` hook runs `lint-staged`.
+- For staged TypeScript and JavaScript under `src/`, lint-staged runs Prettier first, then ESLint with `--fix`. Staged source JSON and Markdown, plus maintained root config and documentation files, are formatted with Prettier.
+- Keep pre-commit checks scoped to staged files. Run full-project lint and typecheck separately before completing a task; do not make a commit depend on a full build.
+
 ## Building with EAS
 
 Use EAS to build, sign, and submit the app in the cloud (`eas build`, `eas submit`) and to ship over-the-air updates (`eas update`) — no local Xcode or Android Studio required. Run EAS CLI as `bunx eas-cli <command>` in Bun projects, or `npx eas-cli@latest <command>` otherwise; substitute that for bare `eas` in docs examples.
