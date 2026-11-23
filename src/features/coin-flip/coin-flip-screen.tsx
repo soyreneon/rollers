@@ -10,9 +10,9 @@ import {
 
 import { BackButton } from '@/components/common/back-button';
 import { ScreenFrame } from '@/components/common/screen-frame';
+import { useTranslation } from '@/i18n/use-translation';
 import { useAppTheme } from '@/theme/use-app-theme';
 import SkiaCoin from './skia-coin';
-import { t } from '@/i18n';
 
 import { styles } from './coin-flip-screen.styles';
 
@@ -21,6 +21,7 @@ function getCoinResult(): 'HEADS' | 'TAILS' {
 }
 
 export default function CoinFlipScreen() {
+  const t = useTranslation();
   const theme = useAppTheme();
   const angle = useSharedValue(0);
   const [result, setResult] = useState<'HEADS' | 'TAILS' | null>(null);

@@ -54,7 +54,7 @@ const en = {
   'dice.helper': 'SHAKE IT UP',
 } as const;
 
-type TranslationKey = keyof typeof en;
+export type TranslationKey = keyof typeof en;
 type Translations = Record<TranslationKey, string>;
 
 const es: Translations = {
@@ -116,8 +116,9 @@ const translations: Record<Language, Translations> = { en, es };
 export function t(
   key: TranslationKey,
   params: Record<string, string | number> = {},
+  language: Language = appConfig.language,
 ): string {
-  return translations[appConfig.language][key].replace(
+  return translations[language][key].replace(
     /\{(\w+)\}/g,
     (placeholder, name: string) => String(params[name] ?? placeholder),
   );

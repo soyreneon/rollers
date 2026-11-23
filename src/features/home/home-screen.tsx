@@ -2,12 +2,13 @@ import { router } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { ScreenFrame } from "@/components/common/screen-frame";
-import { t } from "@/i18n";
+import { useTranslation } from "@/i18n/use-translation";
 import { useAppTheme } from "@/theme/use-app-theme";
 
 import { styles } from "./home-screen.styles";
 
 export default function HomeScreen() {
+  const t = useTranslation();
   const theme = useAppTheme();
 
   return (

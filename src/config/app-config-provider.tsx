@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useLocales } from 'expo-localization';
 import {
   createContext,
   useCallback,
@@ -13,6 +14,7 @@ import {
   appConfig,
   colorPresets,
   type ColorPresetId,
+  type Language,
 } from '@/config/app-config';
 
 const STORAGE_KEY = 'rollers.global-color-preference';
@@ -20,6 +22,7 @@ const STORAGE_KEY = 'rollers.global-color-preference';
 type AppConfigContextValue = {
   color: ColorPresetId;
   setColor: (color: ColorPresetId) => void;
+  language: Language;
 };
 
 const AppConfigContext = createContext<AppConfigContextValue | null>(null);
@@ -45,7 +48,22 @@ function readColor(value: string | null): ColorPresetId | null {
   return null;
 }
 
+function getDeviceLanguage(
+  locales: ReturnType<typeof useLocales>,
+): Language {
+  const preferredLanguage = locales.find(
+    (locale) => locale.languageCode === 'en' || locale.languageCode === 'es',
+  )?.languageCode;
+
+  if (preferredLanguage === 'en' || preferredLanguage === 'es') {
+    return preferredLanguage;
+  }
+  return appConfig.language;
+}
+
 export function AppConfigProvider({ children }: { children: ReactNode }) {
+  const locales = useLocales();
+  const deviceLanguage = getDeviceLanguage(locales);
   const [color, setColorState] = useState(appConfig.color);
   const colorRef = useRef(color);
   const changedBeforeLoad = useRef(false);
@@ -53,15 +71,15 @@ export function AppConfigProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     let active = true;
     AsyncStorage.getItem(STORAGE_KEY)
-      .then((value) => {
-        const savedColor = readColor(value);
+      .then((savedColorValue) => {
+        const savedColor = readColor(savedColorValue);
         if (active && savedColor && !changedBeforeLoad.current) {
           colorRef.current = savedColor;
           setColorState(savedColor);
         }
       })
       .catch((error: unknown) => {
-        console.error('Unable to load saved global color preference.', error);
+        console.error('Unable to load saved color preference.', error);
       });
 
     return () => {
@@ -81,7 +99,9 @@ export function AppConfigProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AppConfigContext.Provider value={{ color, setColor }}>
+    <AppConfigContext.Provider
+      value={{ color, setColor, language: deviceLanguage }}
+    >
       {children}
     </AppConfigContext.Provider>
   );

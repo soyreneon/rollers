@@ -12,9 +12,9 @@ import {
 
 import { BackButton } from '@/components/common/back-button';
 import { ScreenFrame } from '@/components/common/screen-frame';
+import { useTranslation } from '@/i18n/use-translation';
 import { useAppTheme } from '@/theme/use-app-theme';
 import SkiaDie from './skia-die';
-import { t } from '@/i18n';
 
 import { styles } from './dice-roller-screen.styles';
 
@@ -40,6 +40,7 @@ function getTargetOrientation(result: number): { x: number; y: number } {
 }
 
 export default function DiceRollerScreen() {
+  const t = useTranslation();
   const theme = useAppTheme();
   const rotationX = useSharedValue(0);
   const rotationY = useSharedValue(0);

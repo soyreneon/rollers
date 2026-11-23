@@ -8,14 +8,15 @@ import {
   type ColorPresetId,
 } from '@/config/app-config';
 import { useAppConfig } from '@/config/app-config-provider';
-import { t } from '@/i18n';
+import type { TranslationKey } from '@/i18n';
+import { useTranslation } from '@/i18n/use-translation';
 import { useAppTheme } from '@/theme/use-app-theme';
 
 import { styles } from './settings-screen.styles';
 
 const colorNameKeys: Record<
   ColorPresetId,
-  Parameters<typeof t>[0]
+  TranslationKey
 > = {
   pink: 'settings.pink',
   cyan: 'settings.cyan',
@@ -32,6 +33,8 @@ function ColorChoices({
   selected: ColorPresetId;
   onSelect: (color: ColorPresetId) => void;
 }) {
+  const t = useTranslation();
+
   return (
     <View style={styles.choices}>
       {colorPresets.map((preset) => {
@@ -82,6 +85,7 @@ function ColorChoices({
 
 export default function SettingsScreen() {
   const { color, setColor } = useAppConfig();
+  const t = useTranslation();
   const theme = useAppTheme();
 
   return (

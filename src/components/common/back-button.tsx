@@ -1,6 +1,6 @@
 import { Pressable, Text } from 'react-native';
 
-import { t } from '@/i18n';
+import { useTranslation } from '@/i18n/use-translation';
 
 import { styles } from '@/styles/components/back-button.styles';
 
@@ -10,6 +10,8 @@ type BackButtonProps = {
 };
 
 export function BackButton({ accent, onPress }: BackButtonProps) {
+  const t = useTranslation();
+
   return (
     <Pressable
       accessibilityRole="button"
