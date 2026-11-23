@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
     paddingTop: 25,
   },
   eyebrow: {
-    color: theme.colors.coin.accent,
     fontSize: 10,
     fontWeight: "800",
     letterSpacing: 2.3,
@@ -37,7 +36,6 @@ export const styles = StyleSheet.create({
     minHeight: 300,
   },
   resultLabel: {
-    color: theme.colors.coin.accent,
     fontSize: 10,
     fontWeight: "800",
     letterSpacing: 2.3,
@@ -51,10 +49,8 @@ export const styles = StyleSheet.create({
     width: "100%",
     minHeight: 58,
     borderRadius: 18,
-    backgroundColor: theme.colors.coin.accent,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: theme.colors.coin.accent,
     shadowOpacity: 0.38,
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 4 },

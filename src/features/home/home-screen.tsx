@@ -3,11 +3,13 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { ScreenFrame } from "@/components/common/screen-frame";
 import { t } from "@/i18n";
-import { theme } from "@/theme";
+import { useAppTheme } from "@/theme/use-app-theme";
 
 import { styles } from "./home-screen.styles";
 
 export default function HomeScreen() {
+  const theme = useAppTheme();
+
   return (
     <ScreenFrame>
       <ScrollView
@@ -16,21 +18,39 @@ export default function HomeScreen() {
       >
         <View>
           <View style={styles.brandRow}>
-            <View style={styles.brandMark}>
+            <View
+              style={[
+                styles.brandMark,
+                { backgroundColor: theme.colors.dice.accent },
+              ]}
+            >
               <Text style={styles.brandMarkText}>R</Text>
             </View>
             <Text style={styles.brandName}>{t("home.brand")}</Text>
-            <View style={styles.liveTag}>
-              <View style={styles.liveDot} />
-              <Text style={styles.liveText}>{t("home.ready")}</Text>
+            <View style={styles.config}>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t("home.settingsAccessibility")}
+                onPress={() => router.push("/settings")}
+                style={({ pressed }) => [
+                  styles.settingsButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Text style={styles.settingsIcon}>⚙</Text>
+              </Pressable>
             </View>
           </View>
 
           <View style={styles.hero}>
-            <Text style={styles.eyebrow}>{t("home.heroEyebrow")}</Text>
+            <Text style={[styles.eyebrow, { color: theme.colors.coin.accent }]}>
+              {t("home.heroEyebrow")}
+            </Text>
             <Text style={styles.title}>
               {t("home.titleLead")}
-              <Text style={styles.titleAccent}>{t("home.titleAccent")}</Text>
+              <Text style={{ color: theme.colors.dice.accent }}>
+                {t("home.titleAccent")}
+              </Text>
             </Text>
             <Text style={styles.description}>{t("home.description")}</Text>
           </View>
@@ -44,12 +64,28 @@ export default function HomeScreen() {
             onPress={() => router.push("/coin-flip")}
             style={({ pressed }) => [
               styles.optionCard,
-              styles.coinCard,
+              { borderColor: theme.colors.coin.accent },
               pressed && styles.pressed,
             ]}
           >
-            <View style={styles.coinIcon}>
-              <Text style={styles.coinIconText}>C</Text>
+            <View
+              style={[
+                styles.coinIcon,
+                {
+                  borderColor: theme.colors.coin.accent,
+                  backgroundColor: theme.colors.coin.surface,
+                  shadowColor: theme.colors.coin.accent,
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  styles.coinIconText,
+                  { color: theme.colors.coin.accent },
+                ]}
+              >
+                C
+              </Text>
             </View>
             <View style={styles.optionCopy}>
               <Text style={styles.optionTitle}>{t("home.coinTitle")}</Text>
@@ -68,16 +104,45 @@ export default function HomeScreen() {
             onPress={() => router.push("/dice-roller")}
             style={({ pressed }) => [
               styles.optionCard,
-              styles.diceCard,
+              { borderColor: theme.colors.dice.accent },
               pressed && styles.pressed,
             ]}
           >
-            <View style={styles.diceIcon}>
+            <View
+              style={[
+                styles.diceIcon,
+                {
+                  borderColor: theme.colors.dice.accent,
+                  backgroundColor: theme.colors.dice.surface,
+                  shadowColor: theme.colors.dice.accent,
+                },
+              ]}
+            >
               <View style={styles.miniPips}>
-                <View style={styles.miniPip} />
-                <View style={styles.miniPip} />
-                <View style={styles.miniPip} />
-                <View style={styles.miniPip} />
+                <View
+                  style={[
+                    styles.miniPip,
+                    { backgroundColor: theme.colors.dice.accent },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.miniPip,
+                    { backgroundColor: theme.colors.dice.accent },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.miniPip,
+                    { backgroundColor: theme.colors.dice.accent },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.miniPip,
+                    { backgroundColor: theme.colors.dice.accent },
+                  ]}
+                />
               </View>
             </View>
             <View style={styles.optionCopy}>

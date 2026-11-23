@@ -8,7 +8,7 @@ import {
 } from "@shopify/react-native-skia";
 import { useDerivedValue, type SharedValue } from "react-native-reanimated";
 
-import { theme } from "@/theme";
+import { useAppTheme } from "@/theme/use-app-theme";
 
 import { styles } from "./skia-coin-canvas.styles";
 
@@ -23,6 +23,7 @@ export default function SkiaCoinCanvas({
   angle,
   accessibilityLabel,
 }: SkiaCoinCanvasProps) {
+  const theme = useAppTheme();
   const faceTransform = useDerivedValue(() => [
     { scaleX: Math.max(Math.abs(Math.cos(angle.value)), 0.015) },
   ]);

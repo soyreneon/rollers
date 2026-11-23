@@ -1,69 +1,64 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { theme } from '@/theme';
+import { theme } from "@/theme";
 
 export const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingTop: 16,
     paddingBottom: 20,
   },
   brandRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 10,
   },
   brandMark: {
     width: 34,
     height: 34,
     borderRadius: 11,
-    backgroundColor: theme.colors.dice.accent,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   brandMarkText: {
     color: theme.colors.background,
     fontSize: 20,
-    fontWeight: '900',
+    fontWeight: "900",
   },
   brandName: {
     color: theme.colors.foreground,
     fontSize: 13,
-    fontWeight: '800',
+    fontWeight: "800",
     letterSpacing: 3,
   },
-  liveTag: {
-    marginLeft: 'auto',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
+  settingsButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 20,
-    paddingHorizontal: 11,
-    paddingVertical: 7,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  liveDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: theme.colors.status,
-  },
-  liveText: {
+  settingsIcon: {
     color: theme.colors.muted,
-    fontSize: 9,
-    fontWeight: '700',
-    letterSpacing: 1.5,
+    fontSize: 17,
+  },
+  config: {
+    marginLeft: "auto",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    paddingVertical: 7,
   },
   hero: {
     paddingTop: 55,
     paddingBottom: 38,
   },
   eyebrow: {
-    color: theme.colors.coin.accent,
     fontSize: 10,
-    fontWeight: '800',
+    fontWeight: "800",
     letterSpacing: 2.4,
     marginBottom: 15,
   },
@@ -71,11 +66,8 @@ export const styles = StyleSheet.create({
     color: theme.colors.foreground,
     fontSize: 43,
     lineHeight: 47,
-    fontWeight: '900',
+    fontWeight: "900",
     letterSpacing: -1.5,
-  },
-  titleAccent: {
-    color: theme.colors.dice.accent,
   },
   description: {
     color: theme.colors.muted,
@@ -89,26 +81,20 @@ export const styles = StyleSheet.create({
   sectionLabel: {
     color: theme.colors.muted,
     fontSize: 10,
-    fontWeight: '800',
+    fontWeight: "800",
     letterSpacing: 2,
     marginBottom: 2,
   },
   optionCard: {
     minHeight: 116,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 17,
     paddingVertical: 17,
     borderRadius: 20,
     borderWidth: 1,
     backgroundColor: theme.colors.surface,
     gap: 15,
-  },
-  coinCard: {
-    borderColor: theme.colors.coin.accent,
-  },
-  diceCard: {
-    borderColor: theme.colors.dice.accent,
   },
   pressed: {
     opacity: 0.8,
@@ -119,30 +105,23 @@ export const styles = StyleSheet.create({
     height: 54,
     borderRadius: 27,
     borderWidth: 2,
-    borderColor: theme.colors.coin.accent,
-    backgroundColor: theme.colors.coin.surface,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: theme.colors.coin.accent,
+    justifyContent: "center",
+    alignItems: "center",
     shadowOpacity: 0.45,
     shadowRadius: 14,
     elevation: 5,
   },
   coinIconText: {
-    color: theme.colors.coin.accent,
     fontSize: 25,
-    fontWeight: '800',
+    fontWeight: "800",
   },
   diceIcon: {
     width: 54,
     height: 54,
     borderRadius: 16,
     borderWidth: 2,
-    borderColor: theme.colors.dice.accent,
-    backgroundColor: theme.colors.dice.surface,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: theme.colors.dice.accent,
+    justifyContent: "center",
+    alignItems: "center",
     shadowOpacity: 0.4,
     shadowRadius: 14,
     elevation: 5,
@@ -150,16 +129,15 @@ export const styles = StyleSheet.create({
   miniPips: {
     width: 29,
     height: 29,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignContent: "space-between",
   },
   miniPip: {
     width: 7,
     height: 7,
     borderRadius: 4,
-    backgroundColor: theme.colors.dice.accent,
   },
   optionCopy: {
     flex: 1,
@@ -168,7 +146,7 @@ export const styles = StyleSheet.create({
   optionTitle: {
     color: theme.colors.foreground,
     fontSize: 15,
-    fontWeight: '800',
+    fontWeight: "800",
     letterSpacing: 1.1,
   },
   optionDescription: {
@@ -178,13 +156,13 @@ export const styles = StyleSheet.create({
   },
   arrow: {
     fontSize: 22,
-    fontWeight: '500',
+    fontWeight: "500",
     marginLeft: 2,
   },
   footer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 12,
     paddingTop: 30,
   },
@@ -196,7 +174,7 @@ export const styles = StyleSheet.create({
   footerText: {
     color: theme.colors.muted,
     fontSize: 9,
-    fontWeight: '700',
+    fontWeight: "700",
     letterSpacing: 2,
   },
 });

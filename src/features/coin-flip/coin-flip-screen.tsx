@@ -10,8 +10,8 @@ import {
 
 import { BackButton } from '@/components/common/back-button';
 import { ScreenFrame } from '@/components/common/screen-frame';
+import { useAppTheme } from '@/theme/use-app-theme';
 import SkiaCoin from './skia-coin';
-import { theme } from '@/theme';
 import { t } from '@/i18n';
 
 import { styles } from './coin-flip-screen.styles';
@@ -21,6 +21,7 @@ function getCoinResult(): 'HEADS' | 'TAILS' {
 }
 
 export default function CoinFlipScreen() {
+  const theme = useAppTheme();
   const angle = useSharedValue(0);
   const [result, setResult] = useState<'HEADS' | 'TAILS' | null>(null);
   const [flipping, setFlipping] = useState(false);
@@ -67,7 +68,9 @@ export default function CoinFlipScreen() {
         />
 
         <View style={styles.heading}>
-          <Text style={styles.eyebrow}>{t('coin.eyebrow')}</Text>
+          <Text style={[styles.eyebrow, { color: theme.colors.coin.accent }]}>
+            {t('coin.eyebrow')}
+          </Text>
           <Text style={styles.title}>{t('coin.title')}</Text>
           <Text style={styles.subtitle}>{t('coin.subtitle')}</Text>
         </View>
@@ -81,7 +84,8 @@ export default function CoinFlipScreen() {
                 : t(result === 'TAILS' ? 'coin.tailsSide' : 'coin.headsSide')
             }
           />
-          <Text style={styles.resultLabel}>
+          <Text
+            style={[styles.resultLabel, { color: theme.colors.coin.accent }]}>
             {flipping ? t('coin.inAir') : resultLabel}
           </Text>
         </View>
@@ -94,6 +98,10 @@ export default function CoinFlipScreen() {
             onPress={flipCoin}
             style={({ pressed }) => [
               styles.flipButton,
+              {
+                backgroundColor: theme.colors.coin.accent,
+                shadowColor: theme.colors.coin.accent,
+              },
               pressed && !flipping && styles.buttonPressed,
               flipping && styles.buttonDisabled,
             ]}>

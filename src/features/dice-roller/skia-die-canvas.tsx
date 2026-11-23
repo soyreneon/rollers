@@ -8,8 +8,9 @@ import {
   useDerivedValue,
   type SharedValue,
 } from "react-native-reanimated";
+import { useMemo } from "react";
 
-import { theme } from "@/theme";
+import { useAppTheme } from "@/theme/use-app-theme";
 
 import { styles } from "./skia-die-canvas.styles";
 
@@ -30,50 +31,52 @@ type Face = {
   color: string;
 };
 
-const FACES: Face[] = [
-  {
-    value: 1,
-    normal: [0, 0, 1],
-    horizontal: [1, 0, 0],
-    vertical: [0, 1, 0],
-    color: theme.colors.dice.face,
-  },
-  {
-    value: 6,
-    normal: [0, 0, -1],
-    horizontal: [-1, 0, 0],
-    vertical: [0, 1, 0],
-    color: theme.colors.dice.faceDark,
-  },
-  {
-    value: 3,
-    normal: [1, 0, 0],
-    horizontal: [0, 0, -1],
-    vertical: [0, 1, 0],
-    color: theme.colors.dice.faceLight,
-  },
-  {
-    value: 4,
-    normal: [-1, 0, 0],
-    horizontal: [0, 0, 1],
-    vertical: [0, 1, 0],
-    color: theme.colors.dice.faceDark,
-  },
-  {
-    value: 2,
-    normal: [0, 1, 0],
-    horizontal: [1, 0, 0],
-    vertical: [0, 0, -1],
-    color: theme.colors.dice.faceLight,
-  },
-  {
-    value: 5,
-    normal: [0, -1, 0],
-    horizontal: [1, 0, 0],
-    vertical: [0, 0, 1],
-    color: theme.colors.dice.face,
-  },
-];
+function getFaces(theme: ReturnType<typeof useAppTheme>): Face[] {
+  return [
+    {
+      value: 1,
+      normal: [0, 0, 1],
+      horizontal: [1, 0, 0],
+      vertical: [0, 1, 0],
+      color: theme.colors.dice.face,
+    },
+    {
+      value: 6,
+      normal: [0, 0, -1],
+      horizontal: [-1, 0, 0],
+      vertical: [0, 1, 0],
+      color: theme.colors.dice.faceDark,
+    },
+    {
+      value: 3,
+      normal: [1, 0, 0],
+      horizontal: [0, 0, -1],
+      vertical: [0, 1, 0],
+      color: theme.colors.dice.faceLight,
+    },
+    {
+      value: 4,
+      normal: [-1, 0, 0],
+      horizontal: [0, 0, 1],
+      vertical: [0, 1, 0],
+      color: theme.colors.dice.faceDark,
+    },
+    {
+      value: 2,
+      normal: [0, 1, 0],
+      horizontal: [1, 0, 0],
+      vertical: [0, 0, -1],
+      color: theme.colors.dice.faceLight,
+    },
+    {
+      value: 5,
+      normal: [0, -1, 0],
+      horizontal: [1, 0, 0],
+      vertical: [0, 0, 1],
+      color: theme.colors.dice.face,
+    },
+  ];
+}
 
 const PIP_POSITIONS: Record<number, readonly (readonly [number, number])[]> = {
   1: [[0, 0]],
@@ -212,11 +215,15 @@ function faceOpacity(
 
 function DieFace({
   face,
+  accent,
+  ink,
   rotationX,
   rotationY,
   scale,
 }: {
   face: Face;
+  accent: string;
+  ink: string;
   rotationX: SharedValue<number>;
   rotationY: SharedValue<number>;
   scale: SharedValue<number>;
@@ -236,12 +243,12 @@ function DieFace({
       <Path path={facePath} color={face.color} />
       <Path
         path={facePath}
-        color={theme.colors.dice.accent}
+        color={accent}
         strokeJoin="round"
         strokeWidth={2.5}
         style="stroke"
       />
-      <Path path={pipsPath} color={theme.colors.dice.ink} />
+      <Path path={pipsPath} color={ink} />
     </Group>
   );
 }
@@ -252,6 +259,9 @@ export default function SkiaDieCanvas({
   scale,
   accessibilityLabel,
 }: SkiaDieCanvasProps) {
+  const theme = useAppTheme();
+  const faces = useMemo(() => getFaces(theme), [theme]);
+
   return (
     <Canvas
       accessible
@@ -261,10 +271,12 @@ export default function SkiaDieCanvas({
       <Group opacity={0.32}>
         <Circle cx={CENTER} cy={CENTER} r={112} color={theme.colors.dice.glow} />
       </Group>
-      {FACES.map((face) => (
+      {faces.map((face) => (
         <DieFace
           key={face.value}
           face={face}
+          accent={theme.colors.dice.accent}
+          ink={theme.colors.dice.ink}
           rotationX={rotationX}
           rotationY={rotationY}
           scale={scale}

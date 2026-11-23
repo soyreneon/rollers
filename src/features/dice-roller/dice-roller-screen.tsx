@@ -12,8 +12,8 @@ import {
 
 import { BackButton } from '@/components/common/back-button';
 import { ScreenFrame } from '@/components/common/screen-frame';
+import { useAppTheme } from '@/theme/use-app-theme';
 import SkiaDie from './skia-die';
-import { theme } from '@/theme';
 import { t } from '@/i18n';
 
 import { styles } from './dice-roller-screen.styles';
@@ -40,6 +40,7 @@ function getTargetOrientation(result: number): { x: number; y: number } {
 }
 
 export default function DiceRollerScreen() {
+  const theme = useAppTheme();
   const rotationX = useSharedValue(0);
   const rotationY = useSharedValue(0);
   const scale = useSharedValue(1);
@@ -105,7 +106,9 @@ export default function DiceRollerScreen() {
         />
 
         <View style={styles.heading}>
-          <Text style={styles.eyebrow}>{t('dice.eyebrow')}</Text>
+          <Text style={[styles.eyebrow, { color: theme.colors.dice.accent }]}>
+            {t('dice.eyebrow')}
+          </Text>
           <Text style={styles.title}>{t('dice.title')}</Text>
           <Text style={styles.subtitle}>{t('dice.subtitle')}</Text>
         </View>
@@ -119,7 +122,8 @@ export default function DiceRollerScreen() {
               rolling ? t('dice.rolling') : t('dice.result', { result })
             }
           />
-          <Text style={styles.resultLabel}>
+          <Text
+            style={[styles.resultLabel, { color: theme.colors.dice.accent }]}>
             {rolling ? t('dice.rolling') : t('dice.result', { result })}
           </Text>
         </View>
@@ -132,6 +136,10 @@ export default function DiceRollerScreen() {
             onPress={rollDie}
             style={({ pressed }) => [
               styles.rollButton,
+              {
+                backgroundColor: theme.colors.dice.accent,
+                shadowColor: theme.colors.dice.accent,
+              },
               pressed && !rolling && styles.buttonPressed,
               rolling && styles.buttonDisabled,
             ]}>
