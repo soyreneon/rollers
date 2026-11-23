@@ -29,6 +29,21 @@ Run lint and typecheck before declaring any task done.
 - Import `Link`, `router`, and `useLocalSearchParams` from `expo-router`.
 - Docs: https://docs.expo.dev/router/introduction.md
 
+## Code organization (Atomic Design)
+
+- `src/app/` contains Expo Router route entry points only. Keep route files thin and re-export the matching feature screen.
+- `src/components/atoms/` contains basic, reusable UI controls; `molecules/` combines atoms into small functional units; `organisms/` contains larger reusable UI sections; `templates/` provides screen-level layout without feature content.
+- `src/features/<feature>/` owns feature screens, feature-specific components, and their styles. Keep feature-only UI in its feature instead of promoting it to shared components.
+- `src/constants/` contains shared static data such as color palettes. Keep selected user preferences in `src/config/`.
+- `src/i18n/translations/` contains one translation dictionary per locale. `src/i18n/` owns translation lookup and hooks; use the translation hook in UI so locale changes trigger rerenders.
+- Keep global app styling in `src/styles/`; keep component and feature styles next to the code they style.
+
+## Formatting standards
+
+- Prettier is the source formatter. After changing code, configuration, or documentation in any task, run `npm run format` before validation.
+- `npm run format` formats maintained source files and root configuration/documentation files. Do not manually format around or disable Prettier.
+- Run `npm run format:check` when verifying formatting without writing files.
+
 ## Building with EAS
 
 Use EAS to build, sign, and submit the app in the cloud (`eas build`, `eas submit`) and to ship over-the-air updates (`eas update`) — no local Xcode or Android Studio required. Run EAS CLI as `bunx eas-cli <command>` in Bun projects, or `npx eas-cli@latest <command>` otherwise; substitute that for bare `eas` in docs examples.

@@ -1,1 +1,1 @@
-export { default } from '@/features/coin-flip/coin-flip-screen';
+export { default } from "@/features/coin-flip/coin-flip-screen";

@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
-import { ScreenFrame } from "@/components/common/screen-frame";
+import { ScreenFrame } from "@/components/templates/screen-frame";
 import { useTranslation } from "@/i18n/use-translation";
 import { useAppTheme } from "@/theme/use-app-theme";
 

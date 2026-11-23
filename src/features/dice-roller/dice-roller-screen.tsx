@@ -1,6 +1,6 @@
-import { router } from 'expo-router';
-import { useCallback, useState } from 'react';
-import { Platform, Pressable, Text, Vibration, View } from 'react-native';
+import { router } from "expo-router";
+import { useCallback, useState } from "react";
+import { Platform, Pressable, Text, Vibration, View } from "react-native";
 import {
   Easing,
   runOnJS,
@@ -8,15 +8,15 @@ import {
   withSequence,
   withSpring,
   withTiming,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
-import { BackButton } from '@/components/common/back-button';
-import { ScreenFrame } from '@/components/common/screen-frame';
-import { useTranslation } from '@/i18n/use-translation';
-import { useAppTheme } from '@/theme/use-app-theme';
-import SkiaDie from './skia-die';
+import { BackButton } from "@/components/atoms/back-button";
+import { ScreenFrame } from "@/components/templates/screen-frame";
+import { useTranslation } from "@/i18n/use-translation";
+import { useAppTheme } from "@/theme/use-app-theme";
+import SkiaDie from "./skia-die";
 
-import { styles } from './dice-roller-screen.styles';
+import { styles } from "./dice-roller-screen.styles";
 
 function getDieResult(): number {
   return Math.floor(Math.random() * 6) + 1;
@@ -58,7 +58,7 @@ export default function DiceRollerScreen() {
 
     const nextResult = getDieResult();
     setRolling(true);
-    if (Platform.OS !== 'web') {
+    if (Platform.OS !== "web") {
       Vibration.vibrate([0, 45, 35, 90]);
     }
 
@@ -108,10 +108,10 @@ export default function DiceRollerScreen() {
 
         <View style={styles.heading}>
           <Text style={[styles.eyebrow, { color: theme.colors.dice.accent }]}>
-            {t('dice.eyebrow')}
+            {t("dice.eyebrow")}
           </Text>
-          <Text style={styles.title}>{t('dice.title')}</Text>
-          <Text style={styles.subtitle}>{t('dice.subtitle')}</Text>
+          <Text style={styles.title}>{t("dice.title")}</Text>
+          <Text style={styles.subtitle}>{t("dice.subtitle")}</Text>
         </View>
 
         <View style={styles.stage}>
@@ -120,19 +120,20 @@ export default function DiceRollerScreen() {
             rotationY={rotationY}
             scale={scale}
             accessibilityLabel={
-              rolling ? t('dice.rolling') : t('dice.result', { result })
+              rolling ? t("dice.rolling") : t("dice.result", { result })
             }
           />
           <Text
-            style={[styles.resultLabel, { color: theme.colors.dice.accent }]}>
-            {rolling ? t('dice.rolling') : t('dice.result', { result })}
+            style={[styles.resultLabel, { color: theme.colors.dice.accent }]}
+          >
+            {rolling ? t("dice.rolling") : t("dice.result", { result })}
           </Text>
         </View>
 
         <View style={styles.actions}>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={t('dice.accessibility')}
+            accessibilityLabel={t("dice.accessibility")}
             disabled={rolling}
             onPress={rollDie}
             style={({ pressed }) => [
@@ -143,12 +144,13 @@ export default function DiceRollerScreen() {
               },
               pressed && !rolling && styles.buttonPressed,
               rolling && styles.buttonDisabled,
-            ]}>
+            ]}
+          >
             <Text style={styles.rollButtonText}>
-              {rolling ? t('dice.rolling') : t('dice.rollButton')}
+              {rolling ? t("dice.rolling") : t("dice.rollButton")}
             </Text>
           </Pressable>
-          <Text style={styles.helper}>{t('dice.helper')}</Text>
+          <Text style={styles.helper}>{t("dice.helper")}</Text>
         </View>
       </View>
     </ScreenFrame>

@@ -1,29 +1,23 @@
-import { router } from 'expo-router';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { router } from "expo-router";
+import { Pressable, ScrollView, Text, View } from "react-native";
 
-import { BackButton } from '@/components/common/back-button';
-import { ScreenFrame } from '@/components/common/screen-frame';
-import {
-  colorPresets,
-  type ColorPresetId,
-} from '@/config/app-config';
-import { useAppConfig } from '@/config/app-config-provider';
-import type { TranslationKey } from '@/i18n';
-import { useTranslation } from '@/i18n/use-translation';
-import { useAppTheme } from '@/theme/use-app-theme';
+import { BackButton } from "@/components/atoms/back-button";
+import { ScreenFrame } from "@/components/templates/screen-frame";
+import { colorPresets, type ColorPresetId } from "@/constants/color-presets";
+import { useAppConfig } from "@/config/app-config-provider";
+import type { TranslationKey } from "@/i18n";
+import { useTranslation } from "@/i18n/use-translation";
+import { useAppTheme } from "@/theme/use-app-theme";
 
-import { styles } from './settings-screen.styles';
+import { styles } from "./settings-screen.styles";
 
-const colorNameKeys: Record<
-  ColorPresetId,
-  TranslationKey
-> = {
-  pink: 'settings.pink',
-  cyan: 'settings.cyan',
-  lime: 'settings.lime',
-  purple: 'settings.purple',
-  orange: 'settings.orange',
-  blue: 'settings.blue',
+const colorNameKeys: Record<ColorPresetId, TranslationKey> = {
+  pink: "settings.pink",
+  cyan: "settings.cyan",
+  lime: "settings.lime",
+  purple: "settings.purple",
+  orange: "settings.orange",
+  blue: "settings.blue",
 };
 
 function ColorChoices({
@@ -44,16 +38,14 @@ function ColorChoices({
           <Pressable
             key={preset.id}
             accessibilityRole="button"
-            accessibilityLabel={`${t(colorNameKeys[preset.id])}${isSelected ? `, ${t('settings.selected')}` : ''}`}
+            accessibilityLabel={`${t(colorNameKeys[preset.id])}${isSelected ? `, ${t("settings.selected")}` : ""}`}
             accessibilityState={{ selected: isSelected }}
             onPress={() => onSelect(preset.id)}
             style={({ pressed }) => [
               styles.choice,
               {
-                borderColor: isSelected ? preset.accent : '#262B2D',
-                backgroundColor: isSelected
-                  ? preset.coin.surface
-                  : '#101315',
+                borderColor: isSelected ? preset.accent : "#262B2D",
+                backgroundColor: isSelected ? preset.coin.surface : "#101315",
               },
               pressed && styles.choicePressed,
             ]}
@@ -70,7 +62,7 @@ function ColorChoices({
             <Text style={styles.choiceName}>{t(colorNameKeys[preset.id])}</Text>
             {isSelected && (
               <Text
-                accessibilityLabel={t('settings.selected')}
+                accessibilityLabel={t("settings.selected")}
                 style={[styles.checkmark, { color: preset.accent }]}
               >
                 ✓
@@ -100,10 +92,10 @@ export default function SettingsScreen() {
         />
         <View style={styles.heading}>
           <Text style={[styles.eyebrow, { color: theme.colors.dice.accent }]}>
-            {t('settings.eyebrow')}
+            {t("settings.eyebrow")}
           </Text>
-          <Text style={styles.title}>{t('settings.title')}</Text>
-          <Text style={styles.description}>{t('settings.description')}</Text>
+          <Text style={styles.title}>{t("settings.title")}</Text>
+          <Text style={styles.description}>{t("settings.description")}</Text>
         </View>
 
         <View style={styles.group}>
@@ -114,9 +106,9 @@ export default function SettingsScreen() {
                 { backgroundColor: theme.colors.coin.accent },
               ]}
             />
-            <Text style={styles.groupTitle}>{t('settings.globalTitle')}</Text>
+            <Text style={styles.groupTitle}>{t("settings.globalTitle")}</Text>
           </View>
-          <Text style={styles.hint}>{t('settings.globalHint')}</Text>
+          <Text style={styles.hint}>{t("settings.globalHint")}</Text>
           <ColorChoices selected={color} onSelect={setColor} />
         </View>
       </ScrollView>

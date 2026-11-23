@@ -1,0 +1,118 @@
+export const colorPresets = [
+  {
+    id: "pink",
+    accent: "#FF67DA",
+    coin: {
+      surface: "#241323",
+      glow: "#32142D",
+      inner: "#F9D7F2",
+      outline: "#A73A8F",
+      ink: "#4C1944",
+    },
+    dice: {
+      surface: "#241323",
+      glow: "#32142D",
+      face: "#FFF0FC",
+      faceLight: "#FFFFFF",
+      faceDark: "#F3C6E9",
+      ink: "#4C1944",
+    },
+  },
+  {
+    id: "cyan",
+    accent: "#56FFD6",
+    coin: {
+      surface: "#10221F",
+      glow: "#11332E",
+      inner: "#D9FFF5",
+      outline: "#1C9F87",
+      ink: "#09231F",
+    },
+    dice: {
+      surface: "#10221F",
+      glow: "#11332E",
+      face: "#D9FFF5",
+      faceLight: "#F1FFFB",
+      faceDark: "#A8E7D8",
+      ink: "#09231F",
+    },
+  },
+  {
+    id: "lime",
+    accent: "#C8FF58",
+    coin: {
+      surface: "#202719",
+      glow: "#35451E",
+      inner: "#F2FFD8",
+      outline: "#8AAE32",
+      ink: "#27350B",
+    },
+    dice: {
+      surface: "#202719",
+      glow: "#35451E",
+      face: "#F2FFD8",
+      faceLight: "#FBFFEF",
+      faceDark: "#D6EDA4",
+      ink: "#27350B",
+    },
+  },
+  {
+    id: "purple",
+    accent: "#B56BFF",
+    coin: {
+      surface: "#1E1628",
+      glow: "#322047",
+      inner: "#F0DFFF",
+      outline: "#7942B2",
+      ink: "#32154F",
+    },
+    dice: {
+      surface: "#1E1628",
+      glow: "#322047",
+      face: "#F0DFFF",
+      faceLight: "#FBF5FF",
+      faceDark: "#D5B6EE",
+      ink: "#32154F",
+    },
+  },
+  {
+    id: "orange",
+    accent: "#FF8A4C",
+    coin: {
+      surface: "#291A14",
+      glow: "#482619",
+      inner: "#FFE6D8",
+      outline: "#BA5828",
+      ink: "#54250F",
+    },
+    dice: {
+      surface: "#291A14",
+      glow: "#482619",
+      face: "#FFE6D8",
+      faceLight: "#FFF8F3",
+      faceDark: "#F2C2A8",
+      ink: "#54250F",
+    },
+  },
+  {
+    id: "blue",
+    accent: "#5D8BFF",
+    coin: {
+      surface: "#151C2B",
+      glow: "#1C2D50",
+      inner: "#DFE9FF",
+      outline: "#3D5FAC",
+      ink: "#172B59",
+    },
+    dice: {
+      surface: "#151C2B",
+      glow: "#1C2D50",
+      face: "#DFE9FF",
+      faceLight: "#F5F8FF",
+      faceDark: "#B8C9F1",
+      ink: "#172B59",
+    },
+  },
+] as const;
+
+export type ColorPresetId = (typeof colorPresets)[number]["id"];

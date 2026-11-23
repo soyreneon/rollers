@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { theme } from '@/theme';
+import { theme } from "@/theme";
 
 export const styles = StyleSheet.create({
   content: {
@@ -14,13 +14,13 @@ export const styles = StyleSheet.create({
   },
   eyebrow: {
     fontSize: 10,
-    fontWeight: '800',
+    fontWeight: "800",
     letterSpacing: 2.3,
   },
   title: {
     color: theme.colors.foreground,
     fontSize: 32,
-    fontWeight: '900',
+    fontWeight: "900",
     letterSpacing: 0.8,
     marginTop: 8,
   },
@@ -35,8 +35,8 @@ export const styles = StyleSheet.create({
     paddingBottom: 12,
   },
   groupHeading: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 9,
   },
   groupMark: {
@@ -47,7 +47,7 @@ export const styles = StyleSheet.create({
   groupTitle: {
     color: theme.colors.foreground,
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: "900",
     letterSpacing: 1.7,
   },
   hint: {
@@ -56,18 +56,18 @@ export const styles = StyleSheet.create({
     marginBottom: 3,
   },
   choices: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 9,
   },
   choice: {
-    width: '31%',
+    width: "31%",
     minHeight: 78,
     borderWidth: 1,
     borderRadius: 15,
     paddingHorizontal: 10,
     paddingVertical: 11,
-    justifyContent: 'center',
+    justifyContent: "center",
     gap: 9,
   },
   choicePressed: {
@@ -85,13 +85,13 @@ export const styles = StyleSheet.create({
   choiceName: {
     color: theme.colors.foreground,
     fontSize: 10,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   checkmark: {
-    position: 'absolute',
+    position: "absolute",
     right: 9,
     top: 8,
     fontSize: 12,
-    fontWeight: '900',
+    fontWeight: "900",
   },
 });

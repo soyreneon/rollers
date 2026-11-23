@@ -1,33 +1,33 @@
-import { router } from 'expo-router';
-import { useCallback, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { router } from "expo-router";
+import { useCallback, useState } from "react";
+import { Pressable, Text, View } from "react-native";
 import {
   Easing,
   runOnJS,
   useSharedValue,
   withTiming,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
-import { BackButton } from '@/components/common/back-button';
-import { ScreenFrame } from '@/components/common/screen-frame';
-import { useTranslation } from '@/i18n/use-translation';
-import { useAppTheme } from '@/theme/use-app-theme';
-import SkiaCoin from './skia-coin';
+import { BackButton } from "@/components/atoms/back-button";
+import { ScreenFrame } from "@/components/templates/screen-frame";
+import { useTranslation } from "@/i18n/use-translation";
+import { useAppTheme } from "@/theme/use-app-theme";
+import SkiaCoin from "./skia-coin";
 
-import { styles } from './coin-flip-screen.styles';
+import { styles } from "./coin-flip-screen.styles";
 
-function getCoinResult(): 'HEADS' | 'TAILS' {
-  return Math.random() < 0.5 ? 'HEADS' : 'TAILS';
+function getCoinResult(): "HEADS" | "TAILS" {
+  return Math.random() < 0.5 ? "HEADS" : "TAILS";
 }
 
 export default function CoinFlipScreen() {
   const t = useTranslation();
   const theme = useAppTheme();
   const angle = useSharedValue(0);
-  const [result, setResult] = useState<'HEADS' | 'TAILS' | null>(null);
+  const [result, setResult] = useState<"HEADS" | "TAILS" | null>(null);
   const [flipping, setFlipping] = useState(false);
 
-  const finishFlip = useCallback((nextResult: 'HEADS' | 'TAILS') => {
+  const finishFlip = useCallback((nextResult: "HEADS" | "TAILS") => {
     setResult(nextResult);
     setFlipping(false);
   }, []);
@@ -36,7 +36,7 @@ export default function CoinFlipScreen() {
     if (flipping) return;
 
     const nextResult = getCoinResult();
-    const sideChange = nextResult === (result ?? 'HEADS') ? 0 : Math.PI;
+    const sideChange = nextResult === (result ?? "HEADS") ? 0 : Math.PI;
     const nextAngle = angle.value + Math.PI * 8 + sideChange;
 
     setFlipping(true);
@@ -55,10 +55,10 @@ export default function CoinFlipScreen() {
   };
 
   const resultLabel = result
-    ? t('coin.result', {
-        result: t(result === 'HEADS' ? 'coin.heads' : 'coin.tails'),
+    ? t("coin.result", {
+        result: t(result === "HEADS" ? "coin.heads" : "coin.tails"),
       })
-    : t('coin.waiting');
+    : t("coin.waiting");
 
   return (
     <ScreenFrame>
@@ -70,10 +70,10 @@ export default function CoinFlipScreen() {
 
         <View style={styles.heading}>
           <Text style={[styles.eyebrow, { color: theme.colors.coin.accent }]}>
-            {t('coin.eyebrow')}
+            {t("coin.eyebrow")}
           </Text>
-          <Text style={styles.title}>{t('coin.title')}</Text>
-          <Text style={styles.subtitle}>{t('coin.subtitle')}</Text>
+          <Text style={styles.title}>{t("coin.title")}</Text>
+          <Text style={styles.subtitle}>{t("coin.subtitle")}</Text>
         </View>
 
         <View style={styles.stage}>
@@ -81,20 +81,21 @@ export default function CoinFlipScreen() {
             angle={angle}
             accessibilityLabel={
               flipping
-                ? t('coin.flipping')
-                : t(result === 'TAILS' ? 'coin.tailsSide' : 'coin.headsSide')
+                ? t("coin.flipping")
+                : t(result === "TAILS" ? "coin.tailsSide" : "coin.headsSide")
             }
           />
           <Text
-            style={[styles.resultLabel, { color: theme.colors.coin.accent }]}>
-            {flipping ? t('coin.inAir') : resultLabel}
+            style={[styles.resultLabel, { color: theme.colors.coin.accent }]}
+          >
+            {flipping ? t("coin.inAir") : resultLabel}
           </Text>
         </View>
 
         <View style={styles.actions}>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel={t('coin.accessibility')}
+            accessibilityLabel={t("coin.accessibility")}
             disabled={flipping}
             onPress={flipCoin}
             style={({ pressed }) => [
@@ -105,12 +106,13 @@ export default function CoinFlipScreen() {
               },
               pressed && !flipping && styles.buttonPressed,
               flipping && styles.buttonDisabled,
-            ]}>
+            ]}
+          >
             <Text style={styles.flipButtonText}>
-              {flipping ? t('coin.flipping') : t('coin.flipButton')}
+              {flipping ? t("coin.flipping") : t("coin.flipButton")}
             </Text>
           </Pressable>
-          <Text style={styles.helper}>{t('coin.helper')}</Text>
+          <Text style={styles.helper}>{t("coin.helper")}</Text>
         </View>
       </View>
     </ScreenFrame>

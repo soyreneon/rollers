@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useLocales } from 'expo-localization';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useLocales } from "expo-localization";
 import {
   createContext,
   useCallback,
@@ -8,16 +8,12 @@ import {
   useRef,
   useState,
   type ReactNode,
-} from 'react';
+} from "react";
 
-import {
-  appConfig,
-  colorPresets,
-  type ColorPresetId,
-  type Language,
-} from '@/config/app-config';
+import { appConfig, type Language } from "@/config/app-config";
+import { colorPresets, type ColorPresetId } from "@/constants/color-presets";
 
-const STORAGE_KEY = 'rollers.global-color-preference';
+const STORAGE_KEY = "rollers.global-color-preference";
 
 type AppConfigContextValue = {
   color: ColorPresetId;
@@ -29,7 +25,7 @@ const AppConfigContext = createContext<AppConfigContextValue | null>(null);
 
 function isColorPresetId(value: unknown): value is ColorPresetId {
   return (
-    typeof value === 'string' &&
+    typeof value === "string" &&
     colorPresets.some((preset) => preset.id === value)
   );
 }
@@ -40,22 +36,20 @@ function readColor(value: string | null): ColorPresetId | null {
   try {
     const parsed: unknown = JSON.parse(value);
     if (isColorPresetId(parsed)) return parsed;
-    console.error('Saved global color preference has an invalid format.');
+    console.error("Saved global color preference has an invalid format.");
   } catch (error) {
-    console.error('Unable to read saved global color preference.', error);
+    console.error("Unable to read saved global color preference.", error);
   }
 
   return null;
 }
 
-function getDeviceLanguage(
-  locales: ReturnType<typeof useLocales>,
-): Language {
+function getDeviceLanguage(locales: ReturnType<typeof useLocales>): Language {
   const preferredLanguage = locales.find(
-    (locale) => locale.languageCode === 'en' || locale.languageCode === 'es',
+    (locale) => locale.languageCode === "en" || locale.languageCode === "es",
   )?.languageCode;
 
-  if (preferredLanguage === 'en' || preferredLanguage === 'es') {
+  if (preferredLanguage === "en" || preferredLanguage === "es") {
     return preferredLanguage;
   }
   return appConfig.language;
@@ -79,7 +73,7 @@ export function AppConfigProvider({ children }: { children: ReactNode }) {
         }
       })
       .catch((error: unknown) => {
-        console.error('Unable to load saved color preference.', error);
+        console.error("Unable to load saved color preference.", error);
       });
 
     return () => {
@@ -93,7 +87,7 @@ export function AppConfigProvider({ children }: { children: ReactNode }) {
     setColorState(nextColor);
     AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(nextColor)).catch(
       (error: unknown) => {
-        console.error('Unable to save global color preference.', error);
+        console.error("Unable to save global color preference.", error);
       },
     );
   }, []);
@@ -110,7 +104,7 @@ export function AppConfigProvider({ children }: { children: ReactNode }) {
 export function useAppConfig() {
   const value = useContext(AppConfigContext);
   if (!value) {
-    throw new Error('useAppConfig must be used within AppConfigProvider.');
+    throw new Error("useAppConfig must be used within AppConfigProvider.");
   }
   return value;
 }

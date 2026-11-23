@@ -1,8 +1,5 @@
-import {
-  appConfig,
-  colorPresets,
-  type ColorPresetId,
-} from '@/config/app-config';
+import { colorPresets, type ColorPresetId } from "@/constants/color-presets";
+import { appConfig } from "@/config/app-config";
 
 function getPreset(id: ColorPresetId) {
   return colorPresets.find((preset) => preset.id === id) ?? colorPresets[0];
@@ -13,12 +10,12 @@ export function createTheme(color: ColorPresetId) {
 
   return {
     colors: {
-      background: '#050607',
-      surface: '#101315',
-      foreground: '#F5F7F6',
-      muted: '#858D8D',
-      border: '#262B2D',
-      status: '#C8FF58',
+      background: "#050607",
+      surface: "#101315",
+      foreground: "#F5F7F6",
+      muted: "#858D8D",
+      border: "#262B2D",
+      status: "#C8FF58",
       coin: {
         accent: preset.accent,
         surface: preset.coin.surface,

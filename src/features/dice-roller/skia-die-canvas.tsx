@@ -1,13 +1,5 @@
-import {
-  Canvas,
-  Circle,
-  Group,
-  Path,
-} from "@shopify/react-native-skia";
-import {
-  useDerivedValue,
-  type SharedValue,
-} from "react-native-reanimated";
+import { Canvas, Circle, Group, Path } from "@shopify/react-native-skia";
+import { useDerivedValue, type SharedValue } from "react-native-reanimated";
 import { useMemo } from "react";
 
 import { useAppTheme } from "@/theme/use-app-theme";
@@ -80,9 +72,21 @@ function getFaces(theme: ReturnType<typeof useAppTheme>): Face[] {
 
 const PIP_POSITIONS: Record<number, readonly (readonly [number, number])[]> = {
   1: [[0, 0]],
-  2: [[-0.5, -0.5], [0.5, 0.5]],
-  3: [[-0.5, -0.5], [0, 0], [0.5, 0.5]],
-  4: [[-0.5, -0.5], [0.5, -0.5], [-0.5, 0.5], [0.5, 0.5]],
+  2: [
+    [-0.5, -0.5],
+    [0.5, 0.5],
+  ],
+  3: [
+    [-0.5, -0.5],
+    [0, 0],
+    [0.5, 0.5],
+  ],
+  4: [
+    [-0.5, -0.5],
+    [0.5, -0.5],
+    [-0.5, 0.5],
+    [0.5, 0.5],
+  ],
   5: [
     [-0.5, -0.5],
     [0.5, -0.5],
@@ -134,11 +138,7 @@ function rotatePoint(
   const z = point[1] * sinX + point[2] * cosX;
   const cosY = Math.cos(rotationY);
   const sinY = Math.sin(rotationY);
-  return [
-    point[0] * cosY + z * sinY,
-    y,
-    -point[0] * sinY + z * cosY,
-  ];
+  return [point[0] * cosY + z * sinY, y, -point[0] * sinY + z * cosY];
 }
 
 function projectPoint(
@@ -204,11 +204,7 @@ function makePipsPath(
   return path;
 }
 
-function faceOpacity(
-  face: Face,
-  rotationX: number,
-  rotationY: number,
-): number {
+function faceOpacity(face: Face, rotationX: number, rotationY: number): number {
   "worklet";
   return rotatePoint(face.normal, rotationX, rotationY)[2] > 0.001 ? 1 : 0;
 }
@@ -269,7 +265,12 @@ export default function SkiaDieCanvas({
       style={styles.canvas}
     >
       <Group opacity={0.32}>
-        <Circle cx={CENTER} cy={CENTER} r={112} color={theme.colors.dice.glow} />
+        <Circle
+          cx={CENTER}
+          cy={CENTER}
+          r={112}
+          color={theme.colors.dice.glow}
+        />
       </Group>
       {faces.map((face) => (
         <DieFace

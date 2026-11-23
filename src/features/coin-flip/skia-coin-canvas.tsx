@@ -44,7 +44,12 @@ export default function SkiaCoinCanvas({
       style={styles.canvas}
     >
       <Group opacity={0.45}>
-        <Circle cx={CENTER} cy={CENTER} r={104} color={theme.colors.coin.glow} />
+        <Circle
+          cx={CENTER}
+          cy={CENTER}
+          r={104}
+          color={theme.colors.coin.glow}
+        />
       </Group>
 
       <Group origin={vec(CENTER, CENTER)} transform={edgeTransform}>
@@ -66,7 +71,12 @@ export default function SkiaCoinCanvas({
 
       <Group origin={vec(CENTER, CENTER)} transform={faceTransform}>
         <Circle cx={CENTER} cy={CENTER} r={90} color={theme.colors.coin.face} />
-        <Circle cx={CENTER} cy={CENTER} r={81} color={theme.colors.coin.inner} />
+        <Circle
+          cx={CENTER}
+          cy={CENTER}
+          r={81}
+          color={theme.colors.coin.inner}
+        />
         <Circle
           cx={CENTER}
           cy={CENTER}
@@ -83,8 +93,18 @@ export default function SkiaCoinCanvas({
           style="stroke"
           strokeWidth={1.5}
         />
-        <Circle cx={CENTER} cy={CENTER - 58} r={3} color={theme.colors.coin.ink} />
-        <Circle cx={CENTER} cy={CENTER + 58} r={3} color={theme.colors.coin.ink} />
+        <Circle
+          cx={CENTER}
+          cy={CENTER - 58}
+          r={3}
+          color={theme.colors.coin.ink}
+        />
+        <Circle
+          cx={CENTER}
+          cy={CENTER + 58}
+          r={3}
+          color={theme.colors.coin.ink}
+        />
         <Group opacity={headsOpacity}>
           <Path
             path={`M ${CENTER - 23} ${CENTER - 30} L ${CENTER - 23} ${CENTER + 30} M ${CENTER + 23} ${CENTER - 30} L ${CENTER + 23} ${CENTER + 30} M ${CENTER - 23} ${CENTER} L ${CENTER + 23} ${CENTER}`}

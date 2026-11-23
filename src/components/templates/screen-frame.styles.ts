@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import { theme } from '@/theme';
+import { theme } from "@/theme";
 
 export const styles = StyleSheet.create({
   safeArea: {
@@ -9,9 +9,9 @@ export const styles = StyleSheet.create({
   },
   frame: {
     flex: 1,
-    width: '100%',
+    width: "100%",
     maxWidth: 500,
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingHorizontal: 24,
   },
 });
