@@ -12,10 +12,10 @@ export const colorPresets = [
     dice: {
       surface: "#241323",
       glow: "#32142D",
-      face: "#FFF0FC",
-      faceLight: "#FFFFFF",
-      faceDark: "#F3C6E9",
-      ink: "#4C1944",
+      face: "#000000",
+      faceLight: "#000000",
+      faceDark: "#000000",
+      ink: "#FF67DA",
     },
   },
   {
@@ -31,10 +31,10 @@ export const colorPresets = [
     dice: {
       surface: "#10221F",
       glow: "#11332E",
-      face: "#D9FFF5",
-      faceLight: "#F1FFFB",
-      faceDark: "#A8E7D8",
-      ink: "#09231F",
+      face: "#000000",
+      faceLight: "#000000",
+      faceDark: "#000000",
+      ink: "#65f0db",
     },
   },
   {
@@ -50,10 +50,10 @@ export const colorPresets = [
     dice: {
       surface: "#202719",
       glow: "#35451E",
-      face: "#F2FFD8",
-      faceLight: "#FBFFEF",
-      faceDark: "#D6EDA4",
-      ink: "#27350B",
+      face: "#000000",
+      faceLight: "#000000",
+      faceDark: "#000000",
+      ink: "#C8FF58",
     },
   },
   {
@@ -69,10 +69,10 @@ export const colorPresets = [
     dice: {
       surface: "#1E1628",
       glow: "#322047",
-      face: "#F0DFFF",
-      faceLight: "#FBF5FF",
-      faceDark: "#D5B6EE",
-      ink: "#32154F",
+      face: "#000000",
+      faceLight: "#000000",
+      faceDark: "#000000",
+      ink: "#B56BFF",
     },
   },
   {
@@ -88,10 +88,10 @@ export const colorPresets = [
     dice: {
       surface: "#291A14",
       glow: "#482619",
-      face: "#FFE6D8",
-      faceLight: "#FFF8F3",
-      faceDark: "#F2C2A8",
-      ink: "#54250F",
+      face: "#000000",
+      faceLight: "#000000",
+      faceDark: "#000000",
+      ink: "#FF8A4C",
     },
   },
   {
@@ -107,10 +107,10 @@ export const colorPresets = [
     dice: {
       surface: "#151C2B",
       glow: "#1C2D50",
-      face: "#DFE9FF",
-      faceLight: "#F5F8FF",
-      faceDark: "#B8C9F1",
-      ink: "#172B59",
+      face: "#000000",
+      faceLight: "#000000",
+      faceDark: "#000000",
+      ink: "#5D8BFF",
     },
   },
 ] as const;

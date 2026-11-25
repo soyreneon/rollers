@@ -1,6 +1,6 @@
 import { Canvas, Circle, Group, Path } from "@shopify/react-native-skia";
-import { useDerivedValue, type SharedValue } from "react-native-reanimated";
 import { useMemo } from "react";
+import { useDerivedValue, type SharedValue } from "react-native-reanimated";
 
 import { useAppTheme } from "@/theme/use-app-theme";
 
@@ -236,12 +236,13 @@ function DieFace({
 
   return (
     <Group opacity={opacity}>
+      {/* <Path path={facePath} color={"black"} /> */}
       <Path path={facePath} color={face.color} />
       <Path
         path={facePath}
         color={accent}
         strokeJoin="round"
-        strokeWidth={2.5}
+        strokeWidth={7.2}
         style="stroke"
       />
       <Path path={pipsPath} color={ink} />
@@ -264,7 +265,7 @@ export default function SkiaDieCanvas({
       accessibilityLabel={accessibilityLabel}
       style={styles.canvas}
     >
-      <Group opacity={0.32}>
+      <Group opacity={0.42}>
         <Circle
           cx={CENTER}
           cy={CENTER}

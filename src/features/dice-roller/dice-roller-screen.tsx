@@ -76,7 +76,7 @@ export default function DiceRollerScreen() {
     rotationX.value = withTiming(
       target.x + xTurns * fullTurn,
       {
-        duration: 1500,
+        duration: 2500,
         easing: Easing.out(Easing.cubic),
       },
       (finished) => {
@@ -86,12 +86,12 @@ export default function DiceRollerScreen() {
       },
     );
     rotationY.value = withTiming(target.y + yTurns * fullTurn, {
-      duration: 1500,
+      duration: 2500,
       easing: Easing.out(Easing.cubic),
     });
     scale.value = withSequence(
       withTiming(0.84, {
-        duration: 700,
+        duration: 900,
         easing: Easing.inOut(Easing.cubic),
       }),
       withSpring(1, { damping: 12, stiffness: 150 }),
