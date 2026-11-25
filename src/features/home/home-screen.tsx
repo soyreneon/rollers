@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { ScreenFrame } from "@/components/templates/screen-frame";
 import { useTranslation } from "@/i18n/use-translation";
+import { Coin, Dice } from "@/icons";
 import { useAppTheme } from "@/theme/use-app-theme";
 
 import { styles } from "./home-screen.styles";
@@ -69,25 +70,8 @@ export default function HomeScreen() {
               pressed && styles.pressed,
             ]}
           >
-            <View
-              style={[
-                styles.coinIcon,
-                {
-                  borderColor: theme.colors.coin.accent,
-                  backgroundColor: theme.colors.coin.surface,
-                  shadowColor: theme.colors.coin.accent,
-                },
-              ]}
-            >
-              <Text
-                style={[
-                  styles.coinIconText,
-                  { color: theme.colors.coin.accent },
-                ]}
-              >
-                C
-              </Text>
-            </View>
+            <Coin size={50} color={theme.colors.coin.accent} />
+
             <View style={styles.optionCopy}>
               <Text style={styles.optionTitle}>{t("home.coinTitle")}</Text>
               <Text style={styles.optionDescription}>
@@ -109,43 +93,7 @@ export default function HomeScreen() {
               pressed && styles.pressed,
             ]}
           >
-            <View
-              style={[
-                styles.diceIcon,
-                {
-                  borderColor: theme.colors.dice.accent,
-                  backgroundColor: theme.colors.dice.surface,
-                  shadowColor: theme.colors.dice.accent,
-                },
-              ]}
-            >
-              <View style={styles.miniPips}>
-                <View
-                  style={[
-                    styles.miniPip,
-                    { backgroundColor: theme.colors.dice.accent },
-                  ]}
-                />
-                <View
-                  style={[
-                    styles.miniPip,
-                    { backgroundColor: theme.colors.dice.accent },
-                  ]}
-                />
-                <View
-                  style={[
-                    styles.miniPip,
-                    { backgroundColor: theme.colors.dice.accent },
-                  ]}
-                />
-                <View
-                  style={[
-                    styles.miniPip,
-                    { backgroundColor: theme.colors.dice.accent },
-                  ]}
-                />
-              </View>
-            </View>
+            <Dice size={50} color={theme.colors.dice.accent} />
             <View style={styles.optionCopy}>
               <Text style={styles.optionTitle}>{t("home.diceTitle")}</Text>
               <Text style={styles.optionDescription}>
