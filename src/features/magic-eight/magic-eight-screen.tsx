@@ -4,6 +4,7 @@ import { Pressable, Text, View } from "react-native";
 import Animated, {
   Easing,
   runOnJS,
+  type SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -11,8 +12,8 @@ import Animated, {
 
 import { BackButton } from "@/components/atoms/back-button";
 import { ScreenFrame } from "@/components/templates/screen-frame";
-import { useTranslation } from "@/i18n/use-translation";
 import type { TranslationKey } from "@/i18n/translations/en";
+import { useTranslation } from "@/i18n/use-translation";
 import { BallEight } from "@/icons";
 import { useAppTheme } from "@/theme/use-app-theme";
 
@@ -29,18 +30,60 @@ const ANSWERS: TranslationKey[] = [
   "magic.answer.outlookNotGood",
 ];
 
+function animateAnswerIn(
+  opacity: SharedValue<number>,
+  scale: SharedValue<number>,
+) {
+  opacity.value = 0;
+  scale.value = 0.15;
+  opacity.value = withTiming(1, {
+    duration: 1100,
+    easing: Easing.in(Easing.cubic),
+  });
+  scale.value = withTiming(1, {
+    duration: 1100,
+    easing: Easing.out(Easing.cubic),
+  });
+}
+
+function animateBallOut(
+  opacity: SharedValue<number>,
+  scale: SharedValue<number>,
+  onComplete: () => void,
+) {
+  opacity.value = 1;
+  scale.value = 1;
+  opacity.value = withTiming(
+    0,
+    { duration: 1100, easing: Easing.out(Easing.cubic) },
+    (finished) => {
+      if (finished) runOnJS(onComplete)();
+    },
+  );
+  scale.value = withTiming(0.15, {
+    duration: 1100,
+    easing: Easing.in(Easing.cubic),
+  });
+}
+
 export default function MagicEightScreen() {
   const t = useTranslation();
   const theme = useAppTheme();
   const opacity = useSharedValue(1);
   const scale = useSharedValue(1);
+  const answerOpacity = useSharedValue(0);
+  const answerScale = useSharedValue(0.15);
   const [answer, setAnswer] = useState<TranslationKey | null>(null);
   const [shaking, setShaking] = useState(false);
 
-  const revealAnswer = useCallback((nextAnswer: TranslationKey) => {
-    setAnswer(nextAnswer);
-    setShaking(false);
-  }, []);
+  const revealAnswer = useCallback(
+    (nextAnswer: TranslationKey) => {
+      setAnswer(nextAnswer);
+      setShaking(false);
+      animateAnswerIn(answerOpacity, answerScale);
+    },
+    [answerOpacity, answerScale],
+  );
 
   const askBall = () => {
     if (shaking) return;
@@ -48,24 +91,16 @@ export default function MagicEightScreen() {
     const nextAnswer = ANSWERS[Math.floor(Math.random() * ANSWERS.length)];
     setAnswer(null);
     setShaking(true);
-    opacity.value = 1;
-    scale.value = 1;
-    opacity.value = withTiming(
-      0,
-      { duration: 1100, easing: Easing.out(Easing.cubic) },
-      (finished) => {
-        if (finished) runOnJS(revealAnswer)(nextAnswer);
-      },
-    );
-    scale.value = withTiming(0.15, {
-      duration: 1100,
-      easing: Easing.in(Easing.cubic),
-    });
+    animateBallOut(opacity, scale, () => revealAnswer(nextAnswer));
   };
 
   const ballStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
     transform: [{ scale: scale.value }],
+  }));
+  const answerStyle = useAnimatedStyle(() => ({
+    opacity: answerOpacity.value,
+    transform: [{ scale: answerScale.value }],
   }));
 
   return (
@@ -94,12 +129,14 @@ export default function MagicEightScreen() {
               />
             </Animated.View>
             {answer && (
-              <Text
-                accessibilityLiveRegion="polite"
-                style={[styles.answer, { color: theme.colors.dice.accent }]}
-              >
-                {t(answer)}
-              </Text>
+              <Animated.View style={[styles.answerOverlay, answerStyle]}>
+                <Text
+                  accessibilityLiveRegion="polite"
+                  style={[styles.answer, { color: theme.colors.dice.accent }]}
+                >
+                  {t(answer)}
+                </Text>
+              </Animated.View>
             )}
           </View>
           {!answer && (

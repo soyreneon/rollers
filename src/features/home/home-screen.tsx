@@ -54,7 +54,6 @@ export default function HomeScreen() {
                 {t("home.titleAccent")}
               </Text>
             </Text>
-            <Text style={styles.description}>{t("home.description")}</Text>
           </View>
         </View>
 
