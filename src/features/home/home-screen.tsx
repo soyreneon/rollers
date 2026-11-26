@@ -3,7 +3,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 
 import { ScreenFrame } from "@/components/templates/screen-frame";
 import { useTranslation } from "@/i18n/use-translation";
-import { Coin, Dice } from "@/icons";
+import { BallEight, Coin, Dice, Roulette } from "@/icons";
 import { useAppTheme } from "@/theme/use-app-theme";
 
 import { styles } from "./home-screen.styles";
@@ -98,6 +98,60 @@ export default function HomeScreen() {
               <Text style={styles.optionTitle}>{t("home.diceTitle")}</Text>
               <Text style={styles.optionDescription}>
                 {t("home.diceDescription")}
+              </Text>
+            </View>
+            <Text style={[styles.arrow, { color: theme.colors.dice.accent }]}>
+              ↗
+            </Text>
+          </Pressable>
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t("home.magicEightAccessibility")}
+            onPress={() => router.push("/magic-eight")}
+            style={({ pressed }) => [
+              styles.optionCard,
+              { borderColor: theme.colors.dice.accent },
+              pressed && styles.pressed,
+            ]}
+          >
+            <BallEight
+              size={50}
+              color={theme.colors.dice.accent}
+              strokeColor={theme.colors.background}
+            />
+            <View style={styles.optionCopy}>
+              <Text style={styles.optionTitle}>
+                {t("home.magicEightTitle")}
+              </Text>
+              <Text style={styles.optionDescription}>
+                {t("home.magicEightDescription")}
+              </Text>
+            </View>
+            <Text style={[styles.arrow, { color: theme.colors.dice.accent }]}>
+              ↗
+            </Text>
+          </Pressable>
+
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={t("home.rouletteAccessibility")}
+            onPress={() => router.push("/roulette")}
+            style={({ pressed }) => [
+              styles.optionCard,
+              { borderColor: theme.colors.dice.accent },
+              pressed && styles.pressed,
+            ]}
+          >
+            <Roulette
+              size={50}
+              color={theme.colors.dice.accent}
+              strokeColor={theme.colors.background}
+            />
+            <View style={styles.optionCopy}>
+              <Text style={styles.optionTitle}>{t("home.rouletteTitle")}</Text>
+              <Text style={styles.optionDescription}>
+                {t("home.rouletteDescription")}
               </Text>
             </View>
             <Text style={[styles.arrow, { color: theme.colors.dice.accent }]}>

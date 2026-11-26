@@ -2,6 +2,7 @@ export const colorPresets = [
   {
     id: "pink",
     accent: "#FF67DA",
+    background: "#000000",
     coin: {
       surface: "#241323",
       glow: "#32142D",
@@ -21,6 +22,7 @@ export const colorPresets = [
   {
     id: "cyan",
     accent: "#56FFD6",
+    background: "#000000",
     coin: {
       surface: "#10221F",
       glow: "#11332E",
@@ -40,6 +42,7 @@ export const colorPresets = [
   {
     id: "lime",
     accent: "#C8FF58",
+    background: "#000000",
     coin: {
       surface: "#202719",
       glow: "#35451E",
@@ -59,6 +62,7 @@ export const colorPresets = [
   {
     id: "purple",
     accent: "#B56BFF",
+    background: "#000000",
     coin: {
       surface: "#1E1628",
       glow: "#322047",
@@ -78,6 +82,7 @@ export const colorPresets = [
   {
     id: "orange",
     accent: "#FF8A4C",
+    background: "#000000",
     coin: {
       surface: "#291A14",
       glow: "#482619",
@@ -97,6 +102,7 @@ export const colorPresets = [
   {
     id: "blue",
     accent: "#5D8BFF",
+    background: "#000000",
     coin: {
       surface: "#151C2B",
       glow: "#1C2D50",

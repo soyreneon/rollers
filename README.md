@@ -1,6 +1,7 @@
 # Rollers
 
-An Expo app for coin flips and dice rolls, with animated Skia graphics.
+An Expo app with animated coin flips, dice rolls, Magic 8 Ball answers, and a
+customizable roulette wheel.
 
 ## Get started
 
@@ -20,7 +21,7 @@ Edit [`src/config/app-config.ts`](./src/config/app-config.ts) to configure the a
 Color palette definitions are in `src/constants/color-presets.ts`; English and Spanish dictionaries
 are separated under `src/i18n/translations/`.
 The app automatically uses the device's first supported language (English or Spanish), with the
-configured language as a fallback. Players can choose the shared coin/dice color from the home
+configured language as a fallback. Players can choose the shared roller color from the home
 screen's settings; that color preference is saved on the device. The shared semantic palette is in
 [`src/theme/index.ts`](./src/theme/index.ts).
 

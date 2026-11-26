@@ -236,7 +236,6 @@ function DieFace({
 
   return (
     <Group opacity={opacity}>
-      {/* <Path path={facePath} color={"black"} /> */}
       <Path path={facePath} color={face.color} />
       <Path
         path={facePath}
