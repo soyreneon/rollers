@@ -1,6 +1,15 @@
 import { router } from "expo-router";
 import { useCallback, useState } from "react";
-import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import Animated, {
   Easing,
   runOnJS,
@@ -18,8 +27,8 @@ import { useAppTheme } from "@/theme/use-app-theme";
 
 import { styles } from "./roulette-screen.styles";
 
-const DEFAULT_OPTIONS = Array.from({ length: 37 }, (_, number) =>
-  String(number),
+const DEFAULT_OPTIONS = Array.from({ length: 4 }, (_, number) =>
+  String(number + 1),
 );
 
 function chooseOption(options: string[]) {
@@ -33,6 +42,7 @@ export default function RouletteScreen() {
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
   const [customName, setCustomName] = useState("");
   const [duplicateName, setDuplicateName] = useState(false);
+  const [addNameVisible, setAddNameVisible] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [spinning, setSpinning] = useState(false);
 
@@ -65,6 +75,11 @@ export default function RouletteScreen() {
     }
 
     setOptions((currentOptions) => [...currentOptions, name]);
+    closeAddName();
+  };
+
+  const closeAddName = () => {
+    setAddNameVisible(false);
     setCustomName("");
     setDuplicateName(false);
   };
@@ -156,98 +171,44 @@ export default function RouletteScreen() {
             contentContainerStyle={styles.optionList}
             showsHorizontalScrollIndicator={false}
           >
-            {options.map((option, index) =>
-              index >= DEFAULT_OPTIONS.length ? (
-                <Pressable
-                  key={option}
-                  accessibilityRole="button"
-                  accessibilityLabel={t("roulette.removeName", {
-                    name: option,
-                  })}
-                  onPress={() => removeName(option)}
-                  style={[
-                    styles.optionChip,
-                    { borderColor: theme.colors.dice.accent },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.optionText,
-                      { color: theme.colors.dice.accent },
-                    ]}
-                  >
-                    {option} ×
-                  </Text>
-                </Pressable>
-              ) : (
-                <View
-                  key={option}
-                  style={[
-                    styles.optionChip,
-                    { borderColor: theme.colors.dice.accent },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.optionText,
-                      { color: theme.colors.dice.accent },
-                    ]}
-                  >
-                    {option}
-                  </Text>
-                </View>
-              ),
-            )}
-          </ScrollView>
-
-          <View style={styles.addRow}>
-            <TextInput
-              accessibilityLabel={t("roulette.nameInputAccessibility")}
-              editable={!spinning}
-              onChangeText={(name) => {
-                setCustomName(name);
-                setDuplicateName(false);
-              }}
-              onSubmitEditing={addName}
-              placeholder={t("roulette.namePlaceholder")}
-              placeholderTextColor={theme.colors.muted}
-              returnKeyType="done"
-              style={[
-                styles.input,
-                {
-                  borderColor: theme.colors.dice.accent,
-                  color: theme.colors.foreground,
-                },
-              ]}
-              value={customName}
-            />
             <Pressable
               accessibilityRole="button"
               accessibilityLabel={t("roulette.addNameAccessibility")}
-              disabled={spinning || !customName.trim()}
-              onPress={addName}
+              disabled={spinning}
+              onPress={() => setAddNameVisible(true)}
               style={({ pressed }) => [
-                styles.addButton,
-                {
-                  backgroundColor: theme.colors.dice.accent,
-                },
+                styles.openAddButton,
+                { backgroundColor: theme.colors.dice.accent },
                 pressed && styles.buttonPressed,
-                (!customName.trim() || spinning) && styles.buttonDisabled,
+                spinning && styles.buttonDisabled,
               ]}
             >
-              <Text style={styles.addButtonText}>
-                {t("roulette.addButton")}
-              </Text>
+              <Text style={styles.openAddButtonText}>+</Text>
             </Pressable>
-          </View>
-          {duplicateName && (
-            <Text
-              accessibilityLiveRegion="polite"
-              style={[styles.inputHint, { color: theme.colors.dice.accent }]}
-            >
-              {t("roulette.duplicateName")}
-            </Text>
-          )}
+            {options.map((option, index) => (
+              <Pressable
+                key={option}
+                accessibilityRole="button"
+                accessibilityLabel={t("roulette.removeName", {
+                  name: option,
+                })}
+                onPress={() => removeName(option)}
+                style={[
+                  styles.optionChip,
+                  { borderColor: theme.colors.dice.accent },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.optionText,
+                    { color: theme.colors.dice.accent },
+                  ]}
+                >
+                  {option} ×
+                </Text>
+              </Pressable>
+            ))}
+          </ScrollView>
         </View>
 
         <View style={styles.actions}>
@@ -273,6 +234,117 @@ export default function RouletteScreen() {
           <Text style={styles.helper}>{t("roulette.helper")}</Text>
         </View>
       </ScrollView>
+
+      <Modal
+        animationType="fade"
+        onRequestClose={closeAddName}
+        transparent
+        visible={addNameVisible}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.modalBackdrop}
+        >
+          <View
+            style={[
+              styles.addModal,
+              {
+                backgroundColor: theme.colors.background,
+                borderColor: theme.colors.dice.accent,
+              },
+            ]}
+          >
+            <View style={styles.modalHeader}>
+              <Text
+                style={[styles.modalTitle, { color: theme.colors.dice.accent }]}
+              >
+                {t("roulette.addNameTitle")}
+              </Text>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t("roulette.closeAddNameAccessibility")}
+                onPress={closeAddName}
+                style={[
+                  styles.closeButton,
+                  { borderColor: theme.colors.dice.accent },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.closeButtonText,
+                    { color: theme.colors.dice.accent },
+                  ]}
+                >
+                  ×
+                </Text>
+              </Pressable>
+            </View>
+            <TextInput
+              accessibilityLabel={t("roulette.nameInputAccessibility")}
+              editable={!spinning}
+              onChangeText={(name) => {
+                setCustomName(name);
+                setDuplicateName(false);
+              }}
+              onSubmitEditing={addName}
+              placeholder={t("roulette.namePlaceholder")}
+              placeholderTextColor={theme.colors.muted}
+              returnKeyType="done"
+              style={[
+                styles.input,
+                {
+                  borderColor: theme.colors.dice.accent,
+                  color: theme.colors.foreground,
+                },
+              ]}
+              value={customName}
+            />
+            {duplicateName && (
+              <Text
+                accessibilityLiveRegion="polite"
+                style={[styles.inputHint, { color: theme.colors.dice.accent }]}
+              >
+                {t("roulette.duplicateName")}
+              </Text>
+            )}
+            <View style={styles.modalActions}>
+              <Pressable
+                accessibilityRole="button"
+                onPress={closeAddName}
+                style={[
+                  styles.cancelButton,
+                  { borderColor: theme.colors.dice.accent },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.cancelButtonText,
+                    { color: theme.colors.dice.accent },
+                  ]}
+                >
+                  {t("roulette.cancelButton")}
+                </Text>
+              </Pressable>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel={t("roulette.addNameAccessibility")}
+                disabled={spinning || !customName.trim()}
+                onPress={addName}
+                style={({ pressed }) => [
+                  styles.addButton,
+                  { backgroundColor: theme.colors.dice.accent },
+                  pressed && styles.buttonPressed,
+                  (!customName.trim() || spinning) && styles.buttonDisabled,
+                ]}
+              >
+                <Text style={styles.addButtonText}>
+                  {t("roulette.addButton")}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
     </ScreenFrame>
   );
 }
