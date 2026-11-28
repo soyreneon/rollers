@@ -9,6 +9,7 @@ type SkiaDieProps = {
   rotationX: SharedValue<number>;
   rotationY: SharedValue<number>;
   scale: SharedValue<number>;
+  size: number;
   accessibilityLabel: string;
 };
 

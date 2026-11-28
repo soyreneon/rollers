@@ -7,7 +7,6 @@ import { useAppTheme } from "@/theme/use-app-theme";
 import { styles } from "./skia-die-canvas.styles";
 
 const CANVAS_SIZE = 280;
-const CENTER = CANVAS_SIZE / 2;
 const CAMERA_DISTANCE = 5;
 const DIE_RADIUS = 62;
 const PIP_RADIUS = 0.14;
@@ -108,6 +107,7 @@ type SkiaDieCanvasProps = {
   rotationX: SharedValue<number>;
   rotationY: SharedValue<number>;
   scale: SharedValue<number>;
+  size: number;
   accessibilityLabel: string;
 };
 
@@ -146,13 +146,16 @@ function projectPoint(
   rotationX: number,
   rotationY: number,
   scale: number,
+  size: number,
 ): readonly [number, number] {
   "worklet";
   const rotated = rotatePoint(point, rotationX, rotationY);
   const perspective = CAMERA_DISTANCE / (CAMERA_DISTANCE - rotated[2]);
+  const dieRadius = (DIE_RADIUS * size) / CANVAS_SIZE;
+  const center = size / 2;
   return [
-    CENTER + rotated[0] * perspective * DIE_RADIUS * scale,
-    CENTER - rotated[1] * perspective * DIE_RADIUS * scale,
+    center + rotated[0] * perspective * dieRadius * scale,
+    center - rotated[1] * perspective * dieRadius * scale,
   ];
 }
 
@@ -161,6 +164,7 @@ function makeFacePath(
   rotationX: number,
   rotationY: number,
   scale: number,
+  size: number,
 ): string {
   "worklet";
   const corners = [
@@ -169,10 +173,16 @@ function makeFacePath(
     facePoint(face, 1, 1),
     facePoint(face, -1, 1),
   ];
-  const first = projectPoint(corners[0], rotationX, rotationY, scale);
+  const first = projectPoint(corners[0], rotationX, rotationY, scale, size);
   let path = `M ${first[0]} ${first[1]}`;
   for (let index = 1; index < corners.length; index += 1) {
-    const point = projectPoint(corners[index], rotationX, rotationY, scale);
+    const point = projectPoint(
+      corners[index],
+      rotationX,
+      rotationY,
+      scale,
+      size,
+    );
     path += ` L ${point[0]} ${point[1]}`;
   }
   return `${path} Z`;
@@ -183,6 +193,7 @@ function makePipsPath(
   rotationX: number,
   rotationY: number,
   scale: number,
+  size: number,
 ): string {
   "worklet";
   let path = "";
@@ -196,7 +207,7 @@ function makePipsPath(
         horizontal + Math.cos(angle) * PIP_RADIUS,
         vertical + Math.sin(angle) * PIP_RADIUS,
       );
-      const projected = projectPoint(point, rotationX, rotationY, scale);
+      const projected = projectPoint(point, rotationX, rotationY, scale, size);
       path += `${segment === 0 ? "M" : "L"} ${projected[0]} ${projected[1]} `;
     }
     path += "Z ";
@@ -216,6 +227,7 @@ function DieFace({
   rotationX,
   rotationY,
   scale,
+  size,
 }: {
   face: Face;
   accent: string;
@@ -223,12 +235,13 @@ function DieFace({
   rotationX: SharedValue<number>;
   rotationY: SharedValue<number>;
   scale: SharedValue<number>;
+  size: number;
 }) {
   const facePath = useDerivedValue(() =>
-    makeFacePath(face, rotationX.value, rotationY.value, scale.value),
+    makeFacePath(face, rotationX.value, rotationY.value, scale.value, size),
   );
   const pipsPath = useDerivedValue(() =>
-    makePipsPath(face, rotationX.value, rotationY.value, scale.value),
+    makePipsPath(face, rotationX.value, rotationY.value, scale.value, size),
   );
   const opacity = useDerivedValue(() =>
     faceOpacity(face, rotationX.value, rotationY.value),
@@ -241,7 +254,7 @@ function DieFace({
         path={facePath}
         color={accent}
         strokeJoin="round"
-        strokeWidth={7.2}
+        strokeWidth={(7.2 * size) / CANVAS_SIZE}
         style="stroke"
       />
       <Path path={pipsPath} color={ink} />
@@ -253,6 +266,7 @@ export default function SkiaDieCanvas({
   rotationX,
   rotationY,
   scale,
+  size,
   accessibilityLabel,
 }: SkiaDieCanvasProps) {
   const theme = useAppTheme();
@@ -262,13 +276,13 @@ export default function SkiaDieCanvas({
     <Canvas
       accessible
       accessibilityLabel={accessibilityLabel}
-      style={styles.canvas}
+      style={[styles.canvas, { width: size, height: size }]}
     >
       <Group opacity={0.42}>
         <Circle
-          cx={CENTER}
-          cy={CENTER}
-          r={112}
+          cx={size / 2}
+          cy={size / 2}
+          r={(112 * size) / CANVAS_SIZE}
           color={theme.colors.dice.glow}
         />
       </Group>
@@ -281,6 +295,7 @@ export default function SkiaDieCanvas({
           rotationX={rotationX}
           rotationY={rotationY}
           scale={scale}
+          size={size}
         />
       ))}
     </Canvas>

@@ -31,15 +31,51 @@ export const styles = StyleSheet.create({
     marginTop: 8,
   },
   stage: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
-    minHeight: 300,
+    gap: 12,
+    width: "100%",
   },
   resultLabel: {
     fontSize: 10,
     fontWeight: "800",
     letterSpacing: 2.3,
-    marginTop: 38,
+    textAlign: "center",
+  },
+  diceCount: {
+    alignItems: "center",
+    gap: 10,
+  },
+  diceCountLabel: {
+    color: theme.colors.muted,
+    fontSize: 9,
+    fontWeight: "700",
+    letterSpacing: 2,
+  },
+  diceCountOptions: {
+    flexDirection: "row",
+    gap: 10,
+  },
+  diceCountOption: {
+    width: 44,
+    height: 40,
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  diceCountOptionText: {
+    color: theme.colors.foreground,
+    fontSize: 14,
+    fontWeight: "800",
+  },
+  diceCountOptionTextSelected: {
+    color: theme.colors.background,
   },
   actions: {
     alignItems: "center",
